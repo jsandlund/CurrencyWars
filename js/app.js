@@ -42,6 +42,7 @@ var quiz = [
 ]
 
 
+
 function runQuiz(quiz) {
 
   // element vars
@@ -56,13 +57,11 @@ function runQuiz(quiz) {
 
   // takes a quiz object as parameter; now a general purpose function that can take any quiz
   
-  // loop through questions
-  var i = 0;
+  // declare counter
+  var i = 0
   
-  while (i < quiz.length) {
-
     var answersList;
-    
+
     // display question
     questionContainer.innerHTML = 
       '<h5 class="questionCount"> Q. '+ (i + 1) + '</h5>' + 
@@ -80,27 +79,40 @@ function runQuiz(quiz) {
         </div>"    
     }
   
-    // Write answers to HTML and Create submit button
+    // Write answers to HTML and Create submit and Next Question button
     answersContainer.innerHTML = answersList;    
     answersContainer.innerHTML += '<input id="submit" onclick="event.preventDefault()" type="submit" value="Submit Answer">';
+    quizContainer.innerHTML += '<button onclick="event.preventDefault()" id="nextQuestion"> Next Question </button>';
 
-    // on submit
+    // define input vars
+    var nextQ = document.getElementById('nextQuestion');
+
+    answersContainer.addEventListener("submit", function() {
+      console.log('HELLO!'); 
+    }, false);
+
+
+    // on submit evaluate answer
     answersContainer.addEventListener('submit', function() {
       
       // evaluate user input
         // if correct, increment score and post success message / else, post failure message
         if (answersContainer[quiz[i].correct].checked) {
+          console.log('CORRECT');
           score ++; 
           feedback.className = 'alert alert-success'; 
           feedback.innerHTML = 'Winner, winner, chicken dinner!';
         } else {
+        console.log('INCORRECT');
         feedback.className = 'alert alert-warning'; 
         feedback.innerHTML = 'Whoops, wrong answer.';
         }
-        // increment counter
-        i++;
     }, false);
-  };
+
+    // on next question click, increment i 
+    nextQ.addEventListener('click', function() {
+      i++;  // increment counter
+    })
   
   // display final results
 }
