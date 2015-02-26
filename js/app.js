@@ -81,19 +81,15 @@ function runQuiz(quiz) {
   
     // Write answers to HTML and Create submit and Next Question button
     answersContainer.innerHTML = answersList;    
-    answersContainer.innerHTML += '<input id="submit" onclick="event.preventDefault()" type="submit" value="Submit Answer">';
-    quizContainer.innerHTML += '<button onclick="event.preventDefault()" id="nextQuestion"> Next Question </button>';
+    answersContainer.innerHTML += '<button id="submitBtn" onclick="event.preventDefault()" type="submit"> Submit Question </button>';
+    quizContainer.innerHTML += '<button onclick="event.preventDefault()" id="nextBtn"> Next Question </button>';
 
-    // define input vars
-    var nextQ = document.getElementById('nextQuestion');
-
-    answersContainer.addEventListener("submit", function() {
-      console.log('HELLO!'); 
-    }, false);
-
+    // define button vars
+    var submitBtn = document.getElementById('submitBtn')
+    var nextBtn = document.getElementById('nextBtn');
 
     // on submit evaluate answer
-    answersContainer.addEventListener('submit', function() {
+    submitBtn.addEventListener('click', function() {
       
       // evaluate user input
         // if correct, increment score and post success message / else, post failure message
@@ -108,11 +104,6 @@ function runQuiz(quiz) {
         feedback.innerHTML = 'Whoops, wrong answer.';
         }
     }, false);
-
-    // on next question click, increment i 
-    nextQ.addEventListener('click', function() {
-      i++;  // increment counter
-    })
   
   // display final results
 }
