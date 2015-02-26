@@ -1,3 +1,9 @@
+// Problems
+  // I need to somehow STOP the loop after the options are written to HTML, and then continue the loop after the user's answer is evaluated
+  // Is this possible? 
+
+
+
 // Create quiz object
 var quiz = [
 {
