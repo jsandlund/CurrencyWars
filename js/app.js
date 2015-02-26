@@ -57,7 +57,9 @@ function runQuiz(quiz) {
   // takes a quiz object as parameter; now a general purpose function that can take any quiz
   
   // loop through questions
-  for (var i = 0; i < quiz.length; i++) {
+  var i = 0;
+  
+  while (i < quiz.length) {
 
     var answersList;
     
@@ -95,18 +97,16 @@ function runQuiz(quiz) {
         feedback.className = 'alert alert-warning'; 
         feedback.innerHTML = 'Whoops, wrong answer.';
         }
-
-      // clear current Question
-      quizContainer.innerHTML = ' ';
-
+        // increment counter
+        i++;
     }, false);
   };
   
   // display final results
 }
 
-runQuiz(quiz); // run runQuiz()
-
+// runQuiz(quiz); // run runQuiz()
+runQuiz(quiz);
 
 // Get Currencies 
 
