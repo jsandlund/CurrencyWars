@@ -41,7 +41,9 @@ var quiz = [
 }
 ]
 
-
+  // declare counter
+  var i = 0
+  var score = 0;
 
 function runQuiz(quiz) {
 
@@ -52,13 +54,10 @@ function runQuiz(quiz) {
   var feedback = document.getElementById('feedback');
   var scoreMsg = document.getElementById('scoreMsg');
 
-  // init vars
-  var score = 0;
 
   // takes a quiz object as parameter; now a general purpose function that can take any quiz
   
-  // declare counter
-  var i = 0
+  
   
     var answersList;
 
@@ -87,8 +86,14 @@ function runQuiz(quiz) {
     // define button vars
     var submitBtn = document.getElementById('submitBtn')
     var nextBtn = document.getElementById('nextBtn');
+  
+  // display final results
+}
 
-    // on submit evaluate answer
+// runQuiz(quiz); // run runQuiz()
+runQuiz(quiz);
+
+  // on submit evaluate answer
     submitBtn.addEventListener('click', function() {
       
       // evaluate user input
@@ -96,20 +101,30 @@ function runQuiz(quiz) {
         if (answersContainer[quiz[i].correct].checked) {
           console.log('CORRECT');
           score ++; 
-          // feedback.className = 'alert alert-success'; 
-          // feedback.innerHTML = 'Winner, winner, chicken dinner!';
         } else {
         console.log('INCORRECT');
         // feedback.className = 'alert alert-warning'; 
         // feedback.innerHTML = 'Whoops, wrong answer.';
         }
     }, false);
-  
-  // display final results
-}
 
-// runQuiz(quiz); // run runQuiz()
-runQuiz(quiz);
+// on click of next question 
+  nextBtn.addEventListener('click', function() {
+    // increment counter
+    i++;
+    // run quiz
+    runQuiz(quiz);
+  })
+  
+
+
+
+
+
+
+
+
+
 
 // Get Currencies 
 
