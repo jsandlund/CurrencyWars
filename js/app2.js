@@ -84,8 +84,8 @@ function runQuiz(quiz) {
     quizContainer.innerHTML += '<button onclick="event.preventDefault()" id="nextBtn"> Next Question </button>';
 
     // define button vars
-    var submitBtn = document.getElementById('submitBtn')
-    var nextBtn = document.getElementById('nextBtn');
+    var submitButton = document.getElementById('submitBtn')
+    var nextButton = document.getElementById('nextBtn');
   
   // display final results
 }
@@ -94,7 +94,7 @@ function runQuiz(quiz) {
 runQuiz(quiz);
 
   // on submit evaluate answer
-    submitBtn.addEventListener('click', function() {
+    submitButton.addEventListener('click', function() {
       
       // evaluate user input
         // if correct, increment score and post success message / else, post failure message
@@ -109,7 +109,7 @@ runQuiz(quiz);
     }, false);
 
 // on click of next question 
-  nextBtn.addEventListener('click', function() {
+  nextButton.addEventListener('click', function() {
     // increment counter
     i++;
     // run quiz

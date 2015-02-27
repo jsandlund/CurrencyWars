@@ -41,7 +41,9 @@ var quiz = [
 }
 ]
 
-
+  // declare counter
+  var i = 0
+  var score = 0;
 
 function runQuiz(quiz) {
 
@@ -52,13 +54,10 @@ function runQuiz(quiz) {
   var feedback = document.getElementById('feedback');
   var scoreMsg = document.getElementById('scoreMsg');
 
-  // init vars
-  var score = 0;
 
   // takes a quiz object as parameter; now a general purpose function that can take any quiz
   
-  // declare counter
-  var i = 0
+  
   
     var answersList;
 
@@ -81,35 +80,52 @@ function runQuiz(quiz) {
   
     // Write answers to HTML and Create submit and Next Question button
     answersContainer.innerHTML = answersList;    
+    
     answersContainer.innerHTML += '<button id="submitBtn" onclick="event.preventDefault()" type="submit"> Submit Question </button>';
-    quizContainer.innerHTML += '<button onclick="event.preventDefault()" id="nextBtn"> Next Question </button>';
-
-    // define button vars
-    var submitBtn = document.getElementById('submitBtn')
-    var nextBtn = document.getElementById('nextBtn');
+    answersContainer.innerHTML += '<button id="nextButton" class="hide"  onclick="event.preventDefault()" type="submit"> Next Question </button>';
+    
+    var submitButton = document.getElementById('submitBtn');
+    var nextBtn = document.getElementById('nextButton');
 
     // on submit evaluate answer
-    submitBtn.addEventListener('click', function() {
-      
+    submitButton.addEventListener('click', function() {
+
       // evaluate user input
         // if correct, increment score and post success message / else, post failure message
         if (answersContainer[quiz[i].correct].checked) {
           console.log('CORRECT');
           score ++; 
-          // feedback.className = 'alert alert-success'; 
-          // feedback.innerHTML = 'Winner, winner, chicken dinner!';
         } else {
         console.log('INCORRECT');
         // feedback.className = 'alert alert-warning'; 
         // feedback.innerHTML = 'Whoops, wrong answer.';
         }
+
+        // hide submit button, show next question
+        submitButton.classList.add('hide');
+        nextBtn.classList.remove('hide');
+
     }, false);
-  
+
+    // on click of next question 
+    nextBtn.addEventListener('click', function() {
+      // increment counter
+      i++;
+      // run quiz
+      runQuiz(quiz);
+    })
+
   // display final results
 }
 
-// runQuiz(quiz); // run runQuiz()
+// initialize quiz
 runQuiz(quiz);
+
+
+
+
+
+
 
 // Get Currencies 
 
