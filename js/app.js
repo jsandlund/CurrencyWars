@@ -41,7 +41,8 @@ var quiz = [
 }
 ]
 
-
+  // declare counter
+  var i = 0
 
 function runQuiz(quiz) {
 
@@ -57,8 +58,7 @@ function runQuiz(quiz) {
 
   // takes a quiz object as parameter; now a general purpose function that can take any quiz
   
-  // declare counter
-  var i = 0
+  
   
     var answersList;
 
@@ -95,9 +95,7 @@ function runQuiz(quiz) {
         // if correct, increment score and post success message / else, post failure message
         if (answersContainer[quiz[i].correct].checked) {
           console.log('CORRECT');
-          score ++; 
-          feedback.className = 'alert alert-success'; 
-          feedback.innerHTML = 'Winner, winner, chicken dinner!';
+          // score ++; 
         } else {
         console.log('INCORRECT');
         feedback.className = 'alert alert-warning'; 
