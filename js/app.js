@@ -1,9 +1,3 @@
-// Problems
-  // I need to somehow STOP the loop after the options are written to HTML, and then continue the loop after the user's answer is evaluated
-  // Is this possible? 
-
-
-
 // Create quiz object
 var quiz = [
 {
@@ -41,9 +35,9 @@ var quiz = [
 }
 ]
 
-  // declare counter
-  var i = 0
-  var score = 0;
+// declare global variables
+var i = 0
+var score = 0;
 
 function runQuiz(quiz) {
 
@@ -51,80 +45,84 @@ function runQuiz(quiz) {
   var answersContainer = document.getElementById('answersContainer');
   var questionContainer = document.getElementById('questionContainer');
   var quizContainer = document.getElementById('quizContainer');
-  var feedback = document.getElementById('feedback');
-  var scoreMsg = document.getElementById('scoreMsg');
-
-
-  // takes a quiz object as parameter; now a general purpose function that can take any quiz
-  
-  
-  
-    var answersList;
-
-    // display question
-    questionContainer.innerHTML = 
-      '<h5 class="questionCount"> Q. '+ (i + 1) + '</h5>' + 
-      '<h3 class="question">' + quiz[i].question + '</h3>';
-
-    // display answer options
+  var eScoreMsg = document.getElementById('scoreMsg');
+  var answersList;
     
-    // Get answers, store in var
-    for (var j = 0; j < quiz[i].answers.length; j++) {
-      answersList +=
-        "<div class='radio'>\
-          <label>\
-            <input id='q-" + j + "'type='radio' name='optionsRadios'>" +  quiz[i].answers[j] + " " + quiz[i].base + "</input>\
-          </label>\
-        </div>"    
+  // display question
+  questionContainer.innerHTML = 
+    '<h5 class="questionCount"> Q. '+ (i + 1) + '</h5>' + 
+    '<h3 class="question">' + quiz[i].question + '</h3>';
+
+  // display score message
+  eScoreMsg.textContent = score + ' for ' + i; 
+  
+  // Get answers, store in var answersList
+  for (var j = 0; j < quiz[i].answers.length; j++) {
+    answersList +=
+      "<div class='radio'>\
+        <label>\
+          <input name='answer' id='q-" + j + "'type='radio'>" +  quiz[i].answers[j] + " " + quiz[i].base + "</input>\
+        </label>\
+      </div>"    
+  }
+
+  // Write answers to HTML 
+  answersContainer.innerHTML = answersList;   
+  // Create buttons, declare button vars
+  answersContainer.innerHTML += '<button id="submitBtn" onclick="event.preventDefault()" type="submit"> Submit Question </button>';
+  answersContainer.innerHTML += '<button id="nextButton" class="hide"  onclick="event.preventDefault()" type="submit"> Next Question </button>';
+  var submitButton = document.getElementById('submitBtn');
+  var nextBtn = document.getElementById('nextButton');
+
+  // on submit button click
+  submitButton.addEventListener('click', function() {
+
+    // get user's answer 
+    var answer; 
+    var answers = document.getElementsByTagName('input');
+    for (var k = 0; k < answers.length; k++) {
+      if(answers[k].checked) {
+        answer = answers[k];
+        console.log(answer);
+      }
     }
-  
-    // Write answers to HTML and Create submit and Next Question button
-    answersContainer.innerHTML = answersList;    
-    
-    answersContainer.innerHTML += '<button id="submitBtn" onclick="event.preventDefault()" type="submit"> Submit Question </button>';
-    answersContainer.innerHTML += '<button id="nextButton" class="hide"  onclick="event.preventDefault()" type="submit"> Next Question </button>';
-    
-    var submitButton = document.getElementById('submitBtn');
-    var nextBtn = document.getElementById('nextButton');
 
-    // on submit evaluate answer
-    submitButton.addEventListener('click', function() {
+    // evaluate user's answer
+      // if correct, increment score and post success message / else, post failure message
+      if (answersContainer[quiz[i].correct].checked) {
+        console.log('CORRECT');
+        score ++; 
+        answer.parentNode.classList.add('text-success');
+      } else {
+      console.log('INCORRECT');
+        answer.parentNode.classList.add('text-danger');
+      }
 
-      // evaluate user input
-        // if correct, increment score and post success message / else, post failure message
-        if (answersContainer[quiz[i].correct].checked) {
-          console.log('CORRECT');
-          score ++; 
-        } else {
-        console.log('INCORRECT');
-        // feedback.className = 'alert alert-warning'; 
-        // feedback.innerHTML = 'Whoops, wrong answer.';
-        }
+      // toggle submit / next button
+      submitButton.classList.add('hide');
+      nextBtn.classList.remove('hide');
 
-        // hide submit button, show next question
-        submitButton.classList.add('hide');
-        nextBtn.classList.remove('hide');
+  }, false);
 
-    }, false);
-
-    // on click of next question 
-    nextBtn.addEventListener('click', function() {
-      // increment counter
-      i++;
-      // run quiz
+  // On click of next question 
+  nextBtn.addEventListener('click', function() {
+    // increment counter
+    i++;
+    // check quiz length
+    if (i < quiz.length) {
+      // if next question, run quiz
       runQuiz(quiz);
-    })
-
-  // display final results
-}
+    } else {
+      // else, display final results
+      quizContainer.innerHTML = 
+      '<h2 class="text-center"> Congratulations! </h2>' +
+      '<h4 class="text-center"> You scored ' + score + ' out of ' + i + '!</h4>'; 
+    }   
+  });
+} // end runQuiz()
 
 // initialize quiz
 runQuiz(quiz);
-
-
-
-
-
 
 
 // Get Currencies 
