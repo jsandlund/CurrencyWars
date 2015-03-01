@@ -37,6 +37,7 @@ var quiz = [
 
 // declare global variables
 var score = 0;
+var i = 0;
 
 function runQuiz(quiz) {
 
