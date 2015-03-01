@@ -36,7 +36,6 @@ var quiz = [
 ]
 
 // declare global variables
-var i = 0
 var score = 0;
 
 function runQuiz(quiz) {
@@ -45,8 +44,9 @@ function runQuiz(quiz) {
   var answersContainer = document.getElementById('answersContainer');
   var questionContainer = document.getElementById('questionContainer');
   var quizContainer = document.getElementById('quizContainer');
+  var eBtnContainer = document.getElementById('btnContainer');
   var eScoreMsg = document.getElementById('scoreMsg');
-  var answersList;
+  var answersList = ' ';
     
   // display question
   questionContainer.innerHTML = 
@@ -69,8 +69,9 @@ function runQuiz(quiz) {
   // Write answers to HTML 
   answersContainer.innerHTML = answersList;   
   // Create buttons, declare button vars
-  answersContainer.innerHTML += '<button id="submitBtn" onclick="event.preventDefault()" type="submit"> Submit Question </button>';
-  answersContainer.innerHTML += '<button id="nextButton" class="hide"  onclick="event.preventDefault()" type="submit"> Next Question </button>';
+  eBtnContainer.innerHTML = '<button id="submitBtn" class="btn btn-primary btn-lg btn-custom" onclick="event.preventDefault()" type="submit"> Submit Question </button>';
+  eBtnContainer.innerHTML += '<button id="nextButton" class="hide btn btn-primary btn-lg btn-custom"  onclick="event.preventDefault()" type="submit"> Next Question </button>';
+  
   var submitButton = document.getElementById('submitBtn');
   var nextBtn = document.getElementById('nextButton');
 
@@ -113,10 +114,26 @@ function runQuiz(quiz) {
       // if next question, run quiz
       runQuiz(quiz);
     } else {
-      // else, display final results
-      quizContainer.innerHTML = 
-      '<h2 class="text-center"> Congratulations! </h2>' +
-      '<h4 class="text-center"> You scored ' + score + ' out of ' + i + '!</h4>'; 
+      
+      // else
+        // hide question and options containers
+        questionContainer.classList.add('hide');
+        // display final results container
+        quizContainer.innerHTML = 
+        '<div id="gameEndMsg">' + 
+          '<h2 class="text-center"> Congratulations! </h2>' +
+          '<h4 class="text-center"> You scored ' + score + ' out of ' + i + '!</h4>' +
+          '<hr>' +
+          '<iframe src="//giphy.com/embed/JgN8HmVgaA5So?html5=true" width="100%" height="271" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' +
+        '</div>'
+
+        // Setup Play Again Button
+        nextBtn.textContent = 'Play Again!' 
+        // On Click
+        nextBtn.addEventListener('click', function() {
+          // Reload page
+          location.reload();
+        }, false)
     }   
   });
 } // end runQuiz()
